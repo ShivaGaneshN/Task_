@@ -270,15 +270,6 @@ button {
 		// import axios from 'axios';
 		let nav = 0;
 let clicked = null;
-async function foo() {
-  let obj;
-
-  const res = await fetch('http://127.0.0.1:8000/api/task-list/')
-
-  obj = await res.json();
-	console.log(obj)
- return obj
-}
 let events = [];
 // events = events.data;
 
@@ -295,27 +286,25 @@ function openModal(date) {
 
 	fetch(url)
 	.then((resp) => resp.json())
-	.then(function(data){console.log('Data:', data)
-	console.log(new Date(data[0].sceduled_date));
-
+	.then(function(data){
 	// var clicked_date = new Date(clicked)
-  const eventForDay = data.find(e => {
+  const eventForDay = data.filter(e => {
 	var clicked_date = new Date(clicked)
 	 clicked_date = clicked_date.toLocaleDateString()
 	var list_date = new Date(e.sceduled_date)
 	 list_date = list_date.toLocaleDateString()
-	 console.log(clicked_date, list_date)
+	//  console.log(clicked_date, list_date)
 	return clicked_date == list_date
 });
-	console.log("event list",eventForDay);
+	// console.log("event list",eventForDay);
 	events = data
 	// document.getElementById('list-wrapper-2').innerHTML = eventForDay;
 
-	// for(var i in eventForDay){
-		var item = `<h1>${eventForDay.title}</h1><br/><h2>${eventForDay.sceduled_date}</h2>`
-		console.log(item)
-		document.getElementById('list-wrapper-2').innerHTML = item;
-	// }
+	for(var i in eventForDay){
+		var item = `<h1>${eventForDay[i].title}</h1><br/><h2>${eventForDay[i].sceduled_date}</h2>`
+		// console.log("item",i)
+		document.getElementById('list-wrapper-2').innerHTML += item;
+	}
 	});
 	
 //   if (eventForDay) {
@@ -370,7 +359,7 @@ function load() {
    
 
 const dayString = `${month + 1}/${i - paddingDays}/${year}`;
-	console.log("events",events)
+	// console.log("events",events)
     
 	
 	if (i > paddingDays) {
@@ -378,30 +367,33 @@ const dayString = `${month + 1}/${i - paddingDays}/${year}`;
       
 	var url = 'http://127.0.0.1:8000/api/task-list/'
 	let datax =[]
+	
+	if (i - paddingDays === day && nav === 0) {
+        daySquare.id = 'currentDay';
+      }
+
+	//  console.log(datax)
+	  
+
 	fetch(url)
 	.then((resp) => resp.json())
-	.then(function(data){ datax = data})
-	 
-	 console.log(datax)
-	  const eventForDay = datax.find(e => {
+	.then(function(data){ 
+
+		const eventForDay = data.find(e => {
 		var clicked_date = new Date(dayString)
 	 clicked_date = clicked_date.toLocaleDateString()
 	var list_date = new Date(e.sceduled_date)
 	 list_date = list_date.toLocaleDateString()
-	 console.log(clicked_date, list_date)
+	//  console.log(clicked_date, list_date)
 	return clicked_date == list_date});
-
-      if (i - paddingDays === day && nav === 0) {
-        daySquare.id = 'currentDay';
-      }
-
+      
       if (eventForDay) {
         const eventDiv = document.createElement('div');
         eventDiv.classList.add('event');
         eventDiv.innerText = eventForDay.title;
         daySquare.appendChild(eventDiv);
       }
-
+	})
       daySquare.addEventListener('click', () => openModal(dayString));
     } else {
       daySquare.classList.add('padding');
