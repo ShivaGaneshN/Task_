@@ -32,9 +32,14 @@ def taskDetail(request, pk):
 	serializer = TaskSerializer(tasks, many=False)
 	return Response(serializer.data)
 
+@api_view(['GET'])
+def tasksDaily(request):
+	print(request.data.scheduled_date)
+
 
 @api_view(['POST'])
 def taskCreate(request):
+	print(request.data)
 	serializer = TaskSerializer(data=request.data)
 
 	if serializer.is_valid():
