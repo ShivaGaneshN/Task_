@@ -282,7 +282,7 @@ const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 
 function openModal(date) {
   clicked = date;
-  var url = 'http://127.0.0.1:8000/api/task-list/'
+  var url = 'https://task.shivaganesh8.repl.co/api/task-list/'
 
 	fetch(url)
 	.then((resp) => resp.json())
@@ -365,7 +365,7 @@ const dayString = `${month + 1}/${i - paddingDays}/${year}`;
 	if (i > paddingDays) {
       daySquare.innerText = i - paddingDays;
       
-	var url = 'http://127.0.0.1:8000/api/task-list/'
+	var url = 'https://task.shivaganesh8.repl.co/api/task-list/'
 	let datax =[]
 	
 	if (i - paddingDays === day && nav === 0) {
@@ -504,7 +504,7 @@ load();
 
 
 
-			var url = 'http://127.0.0.1:8000/api/task-list/'
+			var url = 'https://task.shivaganesh8.repl.co/api/task-list/'
 
 			fetch(url)
 			.then((resp) => resp.json())
@@ -598,9 +598,9 @@ load();
 		form.addEventListener('submit', function(e){
 			e.preventDefault()
 			console.log('Form submitted')
-			var url = 'http://127.0.0.1:8000/api/task-create/'
+			var url = 'https://task.shivaganesh8.repl.co/api/task-create/'
 			if (activeItem != null){
-				var url = `http://127.0.0.1:8000/api/task-update/${activeItem.id}/`
+				var url = `https://task.shivaganesh8.repl.co/api/task-update/${activeItem.id}/`
 				activeItem = null
 			}
 
@@ -645,7 +645,7 @@ load();
 
 		function deleteItem(item){
 			console.log('Delete clicked')
-			fetch(`http://127.0.0.1:8000/api/task-delete/${item.id}/`, {
+			fetch(`https://task.shivaganesh8.repl.co/api/task-delete/${item.id}/`, {
 				method:'DELETE', 
 				headers:{
 					'Content-type':'application/json',
@@ -660,7 +660,7 @@ load();
 			console.log('Strike clicked')
 
 			item.completed = !item.completed
-			fetch(`http://127.0.0.1:8000/api/task-update/${item.id}/`, {
+			fetch(`https://task.shivaganesh8.repl.co/api/task-update/${item.id}/`, {
 				method:'POST', 
 				headers:{
 					'Content-type':'application/json',
