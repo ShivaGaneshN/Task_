@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.register),
-    path('signup/', views.signup),
+    path('signup/', include('login.urls')),
 ]
