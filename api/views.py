@@ -6,8 +6,9 @@ from rest_framework.response import Response
 from .serializers import TaskSerializer
 
 from .models import Task
+from django.contrib.auth.decorators import login_required
 # Create your views here.
-
+# @login_required(login_url='login')
 @api_view(['GET'])
 def apiOverview(request):
 	api_urls = {
